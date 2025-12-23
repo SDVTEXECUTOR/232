@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INTERMIAMI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --neon: #00f7ff;
+      --primary: #00adb5;
+      --pink: #ff00ff;
+      --purple: #b967ff;
+      --dark: #0c0c14;
+      --darker: #05050a;
+      --card: rgba(15, 15, 30, 0.85);
+      --glow: 0 0 12px rgba(0, 247, 255, 0.7);
+      --success: #4ade80;
+      --error: #ff6b6b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: 
+        linear-gradient(135deg, var(--darker), var(--dark)),
+        repeating-linear-gradient(45deg, 
+          rgba(0,247,255,0.03) 0px, 
+          rgba(0,247,255,0.03) 2px,
+          transparent 2px,
+          transparent 4px);
+      color: #e0e0ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.05) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(185, 103, 255, 0.05) 0%, transparent 30%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(10,10,20,0.9) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10,10,20,0.9) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* AUTH */
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      padding: 40px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      box-shadow: var(--glow), 0 10px 40px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      z-index: 2;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--neon), var(--pink), var(--purple), var(--neon));
+      z-index: -1;
+      border-radius: 22px;
+      animation: borderRotate 8s linear infinite;
+    }
+
+    @keyframes borderRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--neon), #fff, var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+    }
+
+    input {
+      width: 100%;
+      margin: 14px 0;
+      padding: 16px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 247, 255, 0.3);
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input::placeholder {
+      color: rgba(200, 200, 255, 0.6);
+    }
+
+    input:focus {
+      border-color: var(--neon);
+      box-shadow: 0 0 0 3px rgba(0, 247, 255, 0.4);
+      background: rgba(0, 10, 20, 0.5);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(90deg, var(--neon), #00e0ff);
+      color: #000;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 12px 0;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(30deg);
+      transition: 0.6s;
+    }
+
+    .btn:hover::after {
+      left: 120%;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--glow), 0 5px 20px rgba(0, 247, 255, 0.5);
+    }
+
+    .error {
+      color: #ff6b6b;
+      text-align: center;
+      margin-top: 15px;
+      min-height: 20px;
+    }
+
+    /* MAIN APP */
+    #main {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .app-header {
+      padding: 25px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .app-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2rem;
+      background: linear-gradient(90deg, var(--neon), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tabs {
+      display: flex;
+      background: rgba(10, 10, 25, 0.7);
+      border-radius: 16px;
+      padding: 6px;
+      margin: 20px 0;
+      border: 1px solid rgba(0, 247, 255, 0.2);
+    }
+
+    .tab {
+      flex: 1;
+      padding: 14px 0;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 12px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tab:hover:not(.active) {
+      background: rgba(0, 247, 255, 0.1);
+    }
+
+    .tab.active {
+      background: linear-gradient(90deg, var(--neon), #00e0ff);
+      color: #000;
+      font-weight: 700;
+      box-shadow: var(--glow);
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      display: none;
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      box-shadow: var(--glow), 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .content.active {
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: var(--neon);
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+    }
+
+    /* CHAT */
+    #chatBox {
+      height: 60vh;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      margin-bottom: 25px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .msg {
+      max-width: 80%;
+      margin: 12px 0;
+      padding: 15px 20px;
+      background: rgba(30, 30, 60, 0.7);
+      border-radius: 18px 18px 4px 18px;
+      word-wrap: break-word;
+      font-size: 15px;
+      line-height: 1.4;
+      border-left: 3px solid var(--neon);
+      align-self: flex-start;
+      margin-right: auto;
+      margin-left: 0;
+    }
+
+    .me {
+      background: linear-gradient(135deg, #00adb5, #008a95);
+      color: white;
+      font-weight: 600;
+      align-self: flex-end;
+      margin-left: auto;
+      margin-right: 0;
+      border-radius: 18px 18px 18px 4px;
+      text-align: right;
+      border-left: none;
+      border-right: 3px solid white;
+    }
+
+    /* 🔥 KHUNG RAINBOW CHO ADMIN - HIỂN THỊ CHO MỌI NGƯỜI */
+    .admin-me {
+      background: rgba(20, 5, 30, 0.9) !important;
+      color: var(--neon) !important;
+      border: 3px solid #ff0000 !important;
+      animation: rainbow-border 6s infinite alternate, pulse 2s infinite;
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+      align-self: flex-start;
+      margin-right: auto;
+      margin-left: 0;
+      border-radius: 18px 18px 4px 18px;
+      max-width: 90%;
+    }
+
+    @keyframes rainbow-border {
+      0% { border-color: #ff0000; }
+      16% { border-color: #ff7f00; }
+      33% { border-color: #ffff00; }
+      50% { border-color: #00ff00; }
+      66% { border-color: #0000ff; }
+      83% { border-color: #4b0082; }
+      100% { border-color: #9400d3; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(255,0,255,0.7); }
+      50% { box-shadow: 0 0 30px rgba(255,0,255,0.9); }
+    }
+
+    .chat-img {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 12px;
+      display: block;
+      margin-top: 12px;
+      border: 1px solid rgba(0, 247, 255, 0.3);
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    #msgInput {
+      flex: 1;
+      padding: 16px 20px;
+      font-size: 16px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: 1px solid rgba(0, 247, 255, 0.3);
+    }
+
+    #msgInput:focus {
+      border-color: var(--neon);
+      background: rgba(0, 10, 20, 0.6);
+    }
+
+    .file-input {
+      width: 55px; /* Adjusted to match send button height */
+      height: 55px;
+      position: relative;
+    }
+
+    .file-input input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-btn {
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 247, 255, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--neon);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 20px;
+    }
+
+    .file-btn:hover {
+      background: rgba(0, 247, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    .send-btn {
+      width: 55px;
+      min-width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--neon), #00e0ff);
+      color: #000;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      box-shadow: var(--glow);
+      transition: all 0.3s;
+    }
+
+    .send-btn:hover {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 0 25px rgba(0, 247, 255, 0.9);
+    }
+
+    /* ADMIN BROADCAST */
+    .broadcast-section {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 25px;
+      margin-top: 20px;
+      border: 1px solid rgba(255, 0, 255, 0.3);
+    }
+
+    .broadcast-title {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--pink);
+    }
+
+    .broadcast-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--pink);
+      background: rgba(30, 0, 30, 0.5);
+      color: white;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .broadcast-input::placeholder {
+      color: rgba(255, 100, 255, 0.6);
+    }
+
+    .broadcast-send {
+      background: linear-gradient(90deg, var(--pink), #ff00aa);
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .broadcast-send:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+    }
+
+    /* BROADCAST NOTIFICATION */
+    #broadcastOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .broadcast-notice {
+      background: rgba(20, 5, 30, 0.95);
+      border: 3px solid var(--pink);
+      border-radius: 20px;
+      padding: 30px 40px;
+      text-align: center;
+      max-width: 90%;
+      width: 500px;
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+      animation: rainbow-border 8s infinite alternate;
+      position: relative;
+    }
+
+    .broadcast-notice h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--pink);
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+    }
+
+    .broadcast-notice p {
+      font-size: 1.3rem;
+      line-height: 1.5;
+      color: var(--neon);
+    }
+
+    /* MINI PLAY (QUIZ) - ALL QUESTIONS VIEW */
+    #quizArea {
+        padding-bottom: 20px;
+        max-height: 70vh;
+        overflow-y: auto;
+        padding-right: 15px; /* For scrollbar */
+    }
+
+    .question-card {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(0, 247, 255, 0.05);
+        border-radius: 12px;
+        border-left: 5px solid var(--neon);
+    }
+    
+    .question-card h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--neon);
+        margin-bottom: 15px;
+    }
+    
+    .option-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .answer-option {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .answer-option:hover {
+      background: rgba(0, 247, 255, 0.15);
+    }
+
+    .answer-option.selected {
+      background: rgba(185, 103, 255, 0.4);
+      border-color: var(--purple);
+      box-shadow: 0 0 10px rgba(185, 103, 255, 0.7);
+    }
+    
+    .answer-option.correct {
+        border: 2px solid var(--success) !important;
+        background-color: var(--success) !important;
+    }
+
+    .answer-option.wrong {
+        border: 2px solid var(--error) !important;
+        background-color: var(--error) !important;
+    }
+
+    /* Quiz Result Screen */
+    #resultScreen {
+      text-align: center;
+      padding: 50px 20px;
+      min-height: 50vh;
+    }
+
+    #resultScreen h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--success);
+      text-shadow: 0 0 15px rgba(74, 222, 128, 0.7);
+    }
+
+    #resultScreen p {
+      font-size: 1.5rem;
+      color: #e0e0ff;
+      margin-bottom: 30px;
+    }
+
+    #quizControls {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    #submitQuizBtn {
+        width: 300px;
+        margin: 20px auto;
+        background: linear-gradient(90deg, var(--pink), var(--purple));
+        color: white;
+    }
+
+    /* --- NEW CUSTOM MODAL STYLES (Alert/Confirm replacement) --- */
+    #customModalOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none; /* Controlled by JS */
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      backdrop-filter: blur(8px);
+    }
+
+    #customModal {
+      background: var(--card);
+      border: 1px solid rgba(0, 247, 255, 0.4);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0, 247, 255, 0.5), 0 0 50px rgba(0, 0, 0, 0.9);
+      animation: modal-open 0.3s ease-out;
+      position: relative;
+    }
+
+    @keyframes modal-open {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #modalTitle {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon);
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 8px rgba(0, 247, 255, 0.5);
+    }
+
+    #modalMessage {
+      font-size: 1rem;
+      color: #c0c0ff;
+      margin-bottom: 25px;
+      line-height: 1.4;
+    }
+
+    #modalActions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    #modalActions .btn {
+      width: 120px;
+      padding: 12px;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    #modalConfirmBtn {
+      background: linear-gradient(90deg, #ff00ff, #b967ff) !important;
+      color: #fff;
+    }
+
+    /* --- TOAST STYLES (Transient Notifications) --- */
+    #toastContainer {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 3000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: rgba(15, 15, 30, 0.95);
+      padding: 15px 20px;
+      border-radius: 10px;
+      color: white;
+      min-width: 250px;
+      max-width: 300px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      transform: translateX(100%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 5px solid;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .toast i { font-size: 1.2rem; }
+    .toast.success { border-left-color: #4ade80; color: #4ade80; }
+    .toast.success span { color: #fff; }
+
+    .toast.error { border-left-color: #ff6b6b; color: #ff6b6b; }
+    .toast.error span { color: #fff; }
+    
+    .toast.warning { border-left-color: #ff9a00; color: #ff9a00; }
+    .toast.warning span { color: #fff; }
+    
+    .toast.info { border-left-color: var(--neon); color: var(--neon); }
+    .toast.info span { color: #fff; }
+
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .card {
+        padding: 30px;
+      }
+      .app-title {
+        font-size: 1.8rem;
+      }
+      .tabs {
+        flex-direction: column;
+      }
+      .tab {
+        margin: 4px 0;
+      }
+      .chat-input {
+        flex-wrap: wrap;
+      }
+      #msgInput {
+        flex: 1 1 100%;
+      }
+      .file-input, .send-btn {
+        flex-shrink: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cyber-grid"></div>
+
+  <div class="center" id="auth">
+    <div class="card">
+      <div class="logo">
+        <h1>CHAT</h1>
+      </div>
+      <input id="user" placeholder="Username (unique)" autocomplete="off" />
+      <input id="pass" type="password" placeholder="Password" autocomplete="off" />
+      <button class="btn" onclick="register()">ĐĂNG KÝ</button>
+      <button class="btn" style="background: linear-gradient(90deg, #ff00ff, #b967ff);" onclick="login()">ĐĂNG NHẬP</button>
+      <p class="error" id="err"></p>
+    </div>
+  </div>
+
+  <div id="main">
+    <div class="container">
+      <div class="app-header">
+        <h2 class="app-title">CHAT</h2>
+        <button class="btn" style="width:auto; padding:8px 20px; font-size:0.9rem;" onclick="logout()">ĐĂNG XUẤT</button>
+      </div>
+
+      <div class="tabs">
+        <div class="tab" onclick="openTab(this,'info')">INFO</div>
+        <div class="tab active" onclick="openTab(this,'chat')">CHAT</div>
+        <div class="tab" onclick="openTab(this,'miniplay')">MINI</div>
+        <div class="tab" id="adminTab" style="display:none;" onclick="openTab(this,'settings')">ADMIN</div>
+      </div>
+
+      <div id="info" class="content">
+        <h2 class="section-title">TÀI KHOẢN</h2>
+        <div class="info-card">
+          <div class="info-item">
+            <span class="info-label">Username:</span>
+            <span class="info-value" id="iUser"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Hiển thị:</span>
+            <span class="info-value" id="iDisplay"></span>
+          </div>
+        </div>
+        <h3 class="section-title">ĐỔI TÊN HIỂN THỊ</h3>
+        <input id="newDisplay" placeholder="Tên mới..." />
+        <button class="btn" style="margin-top:15px;" onclick="changeDisplay()">CẬP NHẬT</button>
+      </div>
+
+      <div id="chat" class="content active">
+        <h2 class="section-title">GLOBAL CHAT</h2>
+        <div id="chatBox"></div>
+        <div class="chat-input">
+          <input id="msgInput" placeholder="Nhắn tin..." />
+          <div class="file-input">
+            <div class="file-btn">
+              <i class="fas fa-image"></i>
+            </div>
+            <input type="file" id="imgInput" accept="image/*" />
+          </div>
+          <button class="send-btn" onclick="sendMsg()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="miniplay" class="content">
+        <h2 class="section-title">🛠️ QUIZ CƠ KHÍ & AN TOÀN ĐIỆN</h2>
+        
+        <div id="quizArea" style="display:none;">
+            <!-- All questions rendered here -->
+        </div>
+        
+        <div id="resultScreen" style="display:none;">
+            <!-- Result content rendered here -->
+        </div>
+        
+        <div id="quizControls">
+            <p id="quizStatus" style="font-size: 1.1rem; text-align: center; margin-bottom: 20px;">
+                Nhấn BẮT ĐẦU QUIZ để kiểm tra kiến thức!
+            </p>
+            <button class="btn" id="startBtn" onclick="startQuiz()">BẮT ĐẦU QUIZ</button>
+            <button class="btn" id="submitQuizBtn" onclick="submitQuiz()" style="display:none;">
+                NỘP BÀI VÀ XEM KẾT QUẢ
+            </button>
+        </div>
+      </div>
+
+      <div id="settings" class="content">
+        <h2 class="section-title">⚙️ ADMIN PANEL</h2>
+        
+        <div class="broadcast-section">
+          <h3 class="broadcast-title">📢 GỬI THÔNG BÁO TOÀN MẠNG</h3>
+          <input type="text" id="broadcastMsg" class="broadcast-input" placeholder="Nhập tin nhắn hệ thống..." maxlength="150" />
+          <button class="broadcast-send" onclick="sendBroadcast()">GỬI THÔNG BÁO</button>
+        </div>
+
+        <button class="btn" style="background: linear-gradient(90deg, #ff4d4d, #ff0000); margin-top:25px;" onclick="resetAccounts()">RESET TÀI KHOẢN</button>
+        <button class="btn" style="background: linear-gradient(90deg, #ff0000, #b30000); margin-top:15px;" onclick="resetChat()">XÓA TOÀN BỘ CHAT</button>
+        
+        <!-- NÚT PHÁT NHẠC MỚI -->
+        <button class="btn" style="background: linear-gradient(90deg, #ff9a00, #ff5500); margin-top:15px;" onclick="playIntroMusic()">
+          🎵 PHÁT NHẠC INTRO
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="broadcastOverlay">
+    <div class="broadcast-notice">
+      <h3>📢 THÔNG BÁO HỆ THỐNG</h3>
+      <p id="broadcastText"></p>
+    </div>
+  </div>
+
+  <!-- CUSTOM MODAL OVERLAY for Confirm/Critical Alerts -->
+  <div id="customModalOverlay">
+    <div id="customModal">
+      <h3 id="modalTitle"></h3>
+      <p id="modalMessage"></p>
+      <div id="modalActions">
+        <button id="modalConfirmBtn" class="btn">Xác nhận</button>
+        <button id="modalCancelBtn" class="btn" style="background: #333; color: white;">Hủy bỏ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER for transient messages -->
+  <div id="toastContainer"></div>
+
+  <!-- AUDIO PLAYER ẨN -->
+  <audio id="introAudio" src="intro.mp3"></audio>
+  <!-- THÊM AUDIO CHO QUIZ (Đã thêm thuộc tính loop) -->
+  <audio id="bai1Audio" src="1.mp3" loop></audio>
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script>
+    // 🔥 ĐẢM BẢO ADMIN TỒN TẠI
+    (function() {
+      let users = JSON.parse(localStorage.getItem('users') || '{}');
+      users['SDVTOWNER'] = {
+        password: '@7112012SDVT',
+        display: '👑 SDVT OWNER'
+      };
+      localStorage.setItem('users', JSON.stringify(users));
+    })();
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDtrFOwY_BtKWC_zp1di31wQ9lKkKzDFOc",
+      authDomain: "sdvt-daa82.firebaseapp.com",
+      databaseURL: "https://sdvt-daa82-default-rtdb.firebaseio.com",
+      projectId: "sdvt-daa82",
+      storageBucket: "sdvt-daa82.firebasestorage.app",
+      messagingSenderId: "992468952728",
+      appId: "1:992468952728:web:d8314c7cdaf240353152ed"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const messagesRef = db.ref('messages');
+    const broadcastRef = db.ref('broadcast');
+
+    // DOM ELEMENTS
+    const user = document.getElementById('user');
+    const pass = document.getElementById('pass');
+    const err = document.getElementById('err');
+    const auth = document.getElementById('auth');
+    const main = document.getElementById('main');
+    const iUser = document.getElementById('iUser');
+    const iDisplay = document.getElementById('iDisplay');
+    const newDisplay = document.getElementById('newDisplay');
+    const adminTab = document.getElementById('adminTab');
+    const chatBox = document.getElementById('chatBox');
+    const msgInput = document.getElementById('msgInput');
+    const imgInput = document.getElementById('imgInput');
+    const broadcastMsg = document.getElementById('broadcastMsg');
+    const broadcastOverlay = document.getElementById('broadcastOverlay');
+    const broadcastText = document.getElementById('broadcastText');
+    
+    // NEW UI ELEMENTS FOR MODAL/TOAST
+    const modalOverlay = document.getElementById('customModalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+    const modalCancelBtn = document.getElementById('modalCancelBtn');
+    const toastContainer = document.getElementById('toastContainer');
+    
+    // MINI PLAY DOM ELEMENTS
+    const quizArea = document.getElementById('quizArea');
+    const quizStatus = document.getElementById('quizStatus');
+    const startBtn = document.getElementById('startBtn');
+    const submitQuizBtn = document.getElementById('submitQuizBtn'); 
+    const resultScreen = document.getElementById('resultScreen');
+
+    // AUDIO ELEMENTS
+    const introAudio = document.getElementById('introAudio');
+    const bai1Audio = document.getElementById('bai1Audio');
+
+
+    let currentUser = null;
+
+    // --- QUIZ DATA & LOGIC ---
+    
+    // Mảng chứa 30 câu hỏi trắc nghiệm
+    const quizQuestions = [
+        { q: "Những phẩm chất của người lao động trong lĩnh vực cơ khí là :", a: { A: "thích sạch sẽ, cầu toàn.", B: "có chuyên môn phù hợp với vị trí việc làm", C: "cẩn thận, kiên trì, yêu nghề, ham học hỏi…", D: "kĩ năng giao tiếp, hợp tác tốt." }, correct: "C" },
+        { q: "Để đo kích thước các đường kính trong, đường kính ngoài, chiều sâu lỗ, em dùng dụng cụ nào sau đây?", a: { A: "Thước lá", B: "Thước cặp", C: "Thước cuộn", D: "Ê ke" }, correct: "B" },
+        { q: "Ngành nghề nào sau đây không thuộc lĩnh vực cơ khí?", a: { A: "Kĩ sư nông nghiệp", B: "Kĩ sư cơ khí.", C: "Thợ sửa chữa ô tô.", D: "Kĩ thuật viên cơ khí." }, correct: "A" },
+        { q: "Thành phần chủ yếu của kim loại đen là:", a: { A: "sắt và carbon", B: "sắt và thép", C: "sắt và gang", D: "gang và thép" }, correct: "A" },
+        { q: "Những vật liệu nào sau đây là kim loại màu?", a: { A: "Thép, gang", B: "Nhôm, đồng", C: "Đồng, sắt", D: "Nhôm, gang" }, correct: "B" },
+        { q: "Hình chiếu bằng có hướng chiếu:", a: { A: "từ trái sang.", B: "từ trước tới.", C: "từ trên xuống.", D: "từ phải sang." }, correct: "C" },
+        { q: "Hình nào sau đây không phải là khối tròn xoay?", a: { A: "Hình nón.", B: "Hình trụ", C: "Hình cầu .", D: "Hình chóp đều." }, correct: "D" },
+        { q: "Dụng cụ nào sau đây dùng để kiểm tra an toàn mạng điện trong nhà:", a: { A: "tua vít", B: "cờ lê", C: "kìm", D: "bút thử điện" }, correct: "D" },
+        { q: "Dạng chuyển động của cơ cấu tay quay - con trượt là :", a: { A: "biến chuyển động quay thành chuyển động lắc", B: "biến chuyển động quay thành chuyển động quay", C: "biến chuyển động lắc thành chuyển động quay", D: "biến chuyển động quay thành chuyển động tịnh tiến" }, correct: "D" },
+        { q: "Trình tự đọc bản vẽ chi tiết là :", a: { A: "khung tên  hình biểu diễn yêu cầu kĩ thuật  kích thước", B: "khung tên  kích thước  hình biểu diễn  yêu cầu kĩ thuật", C: "khung tên  yêu cầu kĩ thuật  hình biểu diễn  kích thước", D: "khung tên  hình biểu diễn kích thước  yêu cầu kĩ thuật" }, correct: "D" },
+        { q: "Trình tự đọc bản vẽ lắp là:", a: { A: "khung tên → hình biểu diễn →bảng kê → kích thước → phân tích các chi tiết → tổng hợp.", B: "khung tên → kích thước → hình biểu diễn → bảng kê → phân tích các chi tiết → tổng hợp.", C: "khung tên → bảng kê → hình biểu diễn → kích thước → phân tích các chi tiết → tổng hợp.", D: "khung tên → hình biểu diễn → kích thước → bảng kê → phân tích các chi tiết → tổng hợp." }, correct: "D" },
+        { q: "Việc làm nào sau đây là an toàn điện?", a: { A: "Sử dụng bàn là đang bị rò rỉ điện", B: "Sửa điện khi chưa ngắt nguồn", C: "Ngắt nguồn điện trước khi sửa chữa, lắp đặt.", D: "Dùng vật dẫn điện chạm vào ổ điện" }, correct: "C" },
+        { q: "Khi phát hiện người bị tai nạn điện, việc đầu tiên em cần thực hiện là:", a: { A: "gọi điện cho nhân viên y tế.", B: "nhanh chống ngắt nguồn điện.", C: "nắm tay kéo nạn nhân ra", D: "đưa nạn nhân đến trạm y tế." }, correct: "B" },
+        { q: "Kí hiệu nào sau đây là cầu dao hai cực?", a: { A: "[Kí hiệu cầu dao hai cực]", B: "[Kí hiệu ổ cắm]", C: "[Kí hiệu công tắc]", D: "[Kí hiệu cầu chì]" }, correct: "A" }, 
+        { q: "Hình nào sau đây là khối đa diện ?", a: { A: "Hình nón.", B: "Hình cầu", C: "Hình trụ.", D: "Hình hộp chữ nhật." }, correct: "D" },
+        { q: "Người lao động trong lĩnh vực cơ khí cần có những năng lực nào sau đây:", a: { A: "tỉ mỉ, quan sát tốt", B: "thích sạch sẽ, cầu toàn, hợp tác nhóm tốt", C: "có chuyên môn phù hợp, kĩ năng giao tiếp, hợp tác nhóm tốt", D: "sức khoẻ tốt, cẩn thận, kiên trì, yêu thích công việc" }, correct: "C" },
+        { q: "Những vật liệu nào sau đây là kim đen?", a: { A: "Nhôm, đồng", B: "Thép, gang", C: "Đồng, sắt", D: "Nhôm, gang" }, correct: "B" },
+        { q: "Trên bản vẽ kĩ thuật hình chiếu bằng nằm ở vị trí nào so với hình chiếu đứng?", a: { A: "Nằm ở dưới .", B: "Từ trước tới.", C: "Bên trái", D: "Bên phải" }, correct: "A" },
+        { q: "Việc làm nào sau đây là không an toàn điện?", a: { A: "Ngắt nguồn điện trước khi sửa chữa, lắp đặt.", B: "Dùng tay chạm vào ổ điện", C: "Sử dụng dây dẫn có vỏ bọc cách điện", D: "Sử dụng dụng cụ có chuôi cách điện" }, correct: "B" },
+        { q: "Ngành nghề nào sau đây thuộc lĩnh vực cơ khí?", a: { A: "Kiến trúc sư.", B: "Tiếp viên hàng không.", C: "Kĩ sư hoá học.", D: "Thợ hàn." }, correct: "D" },
+        { q: "Dạng chuyển động của cơ cấu tay quay – thanh lắc là :", a: { A: "biến chuyển động quay thành chuyển động tịnh tiến", B: "biến chuyển động quay thành chuyển động quay", C: "biến chuyển động lắc thành qua lại", D: "biến chuyển động quay thành chuyển động lắc" }, correct: "D" },
+        { q: "Một bạn học sinh dùng dây điện trần nối quạt vì “dễ làm”, em nhận xét:", a: { A: "Làm được, không sao", B: "Nguy hiểm vì dễ chạm điện và gây cháy", C: "Không đẹp mắt", D: "Tốn điện" }, correct: "B" },
+        { q: "Một thiết bị bị rò điện nhẹ (tê tay khi chạm), xử lý đúng là:", a: { A: "Tiếp tục dùng", B: "Tắt điện, kiểm tra dây tiếp đất hoặc báo thợ sửa", C: "Gõ mạnh vào vỏ", D: "Mang đi phơi nắng" }, correct: "B" },
+        { q: "Kí hiệu nào sau đây là là cầu chì?", a: { A: "[Kí hiệu cầu chì]", B: "[Kí hiệu ổ cắm]", C: "[Kí hiệu công tắc]", D: "[Kí hiệu cầu dao]" }, correct: "A" },
+        { q: "Kí hiệu nào sau đây là là công tắc 2 cực?", a: { A: "[Kí hiệu công tắc 2 cực]", B: "[Kí hiệu cầu chì]", C: "[Kí hiệu ổ cắm]", D: "[Kí hiệu cầu dao]" }, correct: "A" },
+        { q: "Nguyên nhân gây tai nạn điện thường gặp là:", a: { A: "Ăn uống trong khi làm việc", B: "Sử dụng thiết bị điện sai cách", C: "Thiếu ánh sáng", D: "Mang găng tay khi đóng- cắt cầu dao" }, correct: "B" },
+        { q: "Vì sao không được dùng ổ cắm quá tải?", a: { A: "Gây tốn tiền điện", B: "Gây cháy dây dẫn, cháy nổ", C: "Làm đèn mờ", D: "Làm hỏng tivi" }, correct: "B" },
+        { q: "Trường hợp thấy tia lửa điện tại ổ cắm, em cần:", a: { A: "Đứng gần quan sát", B: "Ngắt cầu dao tổng ngay", C: "Cắm lại cho chặt", D: "Không cần quan tâm" }, correct: "B" },
+        { q: "Quan sát thấy một dây điện bị nứt vỏ ở nhà, em cần làm gì?", a: { A: "Tiếp tục dùng đến khi hỏng", B: "Báo ngay người lớn thay", C: "Dùng dây đồng buộc lại", D: "Chạm thử xem có điện không" }, correct: "B" },
+        { q: "Vì sao phải nối đất thiết bị điện?", a: { A: "Giúp dây dẫn bền hơn", B: "Tránh nóng thiết bị", C: "Giảm nguy cơ điện giật khi rò điện", D: "Giúp tiết kiệm điện." }, correct: "C" }
+    ];
+
+    let userAnswers = {}; // { 0: 'A', 1: 'C', ... }
+    
+    // Helper function để xáo trộn các khóa của một đối tượng (dùng để xáo trộn đáp án)
+    function shuffleObjectKeys(obj) {
+        const keys = Object.keys(obj);
+        for (let i = keys.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [keys[i], keys[j]] = [keys[j], keys[i]];
+        }
+        return keys;
+    }
+
+    // Xử lý việc phát nhạc quiz
+    function playQuizMusic() {
+        if (introAudio) {
+            introAudio.pause();
+            introAudio.currentTime = 0;
+        }
+        if (bai1Audio) {
+            bai1Audio.pause();
+            bai1Audio.currentTime = 0;
+            bai1Audio.loop = true; // Bật lặp lại theo yêu cầu
+            
+            // 🔥 FIX: Thêm load() và thay đổi thông báo lỗi để tăng khả năng phát nhạc
+            bai1Audio.load(); // Tải lại file audio
+            bai1Audio.play().catch(e => {
+                console.error("Audio playback failed:", e);
+                // Thay đổi nội dung cảnh báo để không yêu cầu click vào trang nữa
+                showToast('⚠️ Lỗi: Không thể phát nhạc Quiz. Vui lòng thử nhấn nút lần nữa hoặc kiểm tra cài đặt trình duyệt.', 'warning'); 
+            });
+        } else {
+            showToast('❌ Không tìm thấy file bai 1.mp3!', 'error'); 
+        }
+    }
+
+    // Bắt đầu Quiz: Reset game state và hiển thị tất cả câu hỏi
+    function startQuiz() {
+        // BẮT ĐẦU CHẠY NHẠC QUIZ (Đã lặp)
+        playQuizMusic();
+
+        userAnswers = {};
+        
+        resultScreen.style.display = 'none';
+        quizArea.style.display = 'block';
+        startBtn.style.display = 'none';
+        submitQuizBtn.style.display = 'block';
+        quizStatus.innerText = 'Vui lòng chọn đáp án cho tất cả các câu hỏi và nhấn NỘP BÀI.';
+
+        renderAllQuestions();
+        showToast('Bắt đầu Quiz! Vui lòng hoàn thành tất cả các câu.', 'info');
+    }
+
+    // Hiển thị tất cả câu hỏi
+    function renderAllQuestions() {
+        let html = '';
+        quizQuestions.forEach((qData, index) => {
+            if (qData.q.startsWith("Câu 21")) return; 
+
+            // Lấy ngẫu nhiên thứ tự các đáp án
+            const shuffledKeys = shuffleObjectKeys(qData.a);
+
+            html += `
+                <div class="question-card" id="q-${index}">
+                    <h4>Câu ${index + 1}: ${qData.q}</h4>
+                    <div class="option-group">
+                        ${shuffledKeys.map(key => `
+                            <div class="answer-option" 
+                                data-q-index="${index}" 
+                                data-answer="${key}"
+                                onclick="selectOption(this, ${index}, '${key}')">
+                                ${key}. ${qData.a[key]}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        });
+        quizArea.innerHTML = html;
+        quizArea.scrollTop = 0; // Scroll back to top
+    }
+    
+    // Xử lý khi người dùng chọn đáp án
+    function selectOption(el, qIndex, answerKey) {
+        // 1. Lưu đáp án
+        userAnswers[qIndex] = answerKey;
+        
+        // 2. Cập nhật giao diện (highlight)
+        const optionsInGroup = document.querySelectorAll(`#q-${qIndex} .answer-option`);
+        optionsInGroup.forEach(option => {
+            option.classList.remove('selected');
+        });
+        el.classList.add('selected');
+
+        // 3. Hiển thị Toast "Selected successfully!" (Bằng tiếng Anh)
+        showToast('Selected successfully!', 'success');
+    }
+
+    // Nộp bài và tính điểm
+    function submitQuiz() {
+        // Replaced confirm() with showModal()
+        showModal(
+            'XÁC NHẬN NỘP BÀI',
+            'Bạn có chắc chắn muốn nộp bài? Bài làm sẽ được chấm điểm ngay lập tức.',
+            true,
+            (confirmed) => {
+                if (confirmed) {
+                    calculateAndShowResults();
+                } else {
+                    showToast('Hủy bỏ nộp bài.', 'info');
+                }
+            }
+        );
+    }
+    
+    function calculateAndShowResults() {
+        // DỪNG NHẠC KHI NỘP BÀI và TẮT LOOP - ĐÃ THỰC HIỆN THEO YÊU CẦU
+        if (bai1Audio) {
+            bai1Audio.pause();
+            bai1Audio.currentTime = 0;
+            bai1Audio.loop = false; 
+        }
+
+        let score = 0;
+        const totalQuestions = quizQuestions.length;
+
+        // Bắt đầu tính điểm
+        quizQuestions.forEach((qData, index) => {
+             if (qData.q.startsWith("Câu 21")) return; // Bỏ qua câu 21
+
+            const userAnswer = userAnswers[index];
+            const qElement = document.getElementById(`q-${index}`);
+            
+            // Highlight đáp án đúng/sai trên giao diện
+            if (qElement) {
+                const options = qElement.querySelectorAll('.answer-option');
+                options.forEach(option => {
+                    option.onclick = null; // Vô hiệu hóa click sau khi nộp bài
+                    
+                    if (option.dataset.answer === qData.correct) {
+                        option.classList.add('correct');
+                        option.style.backgroundColor = 'var(--success)';
+                        option.style.color = '#000';
+                        option.style.fontWeight = 'bold';
+                    }
+                    
+                    if (option.dataset.answer === userAnswer && userAnswer !== qData.correct) {
+                        option.classList.add('wrong');
+                        option.style.backgroundColor = 'var(--error)';
+                        option.style.color = '#000';
+                        option.style.fontWeight = 'bold';
+                    }
+                });
+            }
+            
+            // Tính điểm
+            if (userAnswer === qData.correct) {
+                score++;
+            }
+        });
+
+        // Hiển thị kết quả
+        const percentage = Math.round((score / totalQuestions) * 100);
+        
+        quizArea.style.display = 'none';
+        submitQuizBtn.style.display = 'none';
+        startBtn.style.display = 'block';
+        quizStatus.innerText = 'Nhấn BẮT ĐẦU QUIZ để kiểm tra kiến thức!';
+
+        resultScreen.style.display = 'block';
+        resultScreen.innerHTML = `
+            <h2>${percentage >= 70 ? '🎉 CHÚC MỪNG!' : '🤔 CẦN CỐ GẮNG HƠN'}</h2>
+            <p>Kết quả bài Quiz:</p>
+            <p style="font-size: 2.5rem; font-family: 'Orbitron', sans-serif; margin-bottom: 30px; color: ${percentage >= 70 ? 'var(--success)' : 'var(--error)'};">${score} / ${totalQuestions} (${totalQuestions > 0 ? percentage : 0}%)</p>
+            <button class="btn" style="background: linear-gradient(90deg, var(--neon), #00e0ff);" onclick="startQuiz()">LÀM LẠI</button>
+        `;
+    }
+
+    // --- NEW CUSTOM UI FUNCTIONS ---
+
+    function closeModal() {
+      modalOverlay.style.display = 'none';
+    }
+
+    /**
+     * Shows a custom modal for alerts or confirmations.
+     * @param {string} title - The title of the modal.
+     * @param {string} message - The message content.
+     * @param {boolean} isConfirm - If true, show confirm/cancel buttons (Confirmation). If false, show only a confirm button (Alert).
+     * @param {function} [callback] - Function to run on confirmation (only for confirm modals). Argument will be boolean (true if confirmed).
+     */
+    function showModal(title, message, isConfirm, callback = () => {}) {
+      modalTitle.innerText = title;
+      modalMessage.innerText = message;
+
+      modalOverlay.style.display = 'flex';
+
+      // Clear previous listeners
+      modalConfirmBtn.onclick = null;
+      modalCancelBtn.onclick = null;
+
+      if (isConfirm) {
+        // Confirmation setup
+        modalCancelBtn.style.display = 'block';
+        modalConfirmBtn.innerText = 'Xác nhận';
+        modalConfirmBtn.onclick = () => {
+          closeModal();
+          callback(true);
+        };
+        modalCancelBtn.onclick = () => {
+          closeModal();
+          callback(false);
+        };
+      } else {
+        // Alert setup (show only one button to close)
+        modalCancelBtn.style.display = 'none';
+        modalConfirmBtn.innerText = 'Đóng';
+        modalConfirmBtn.onclick = () => {
+          closeModal();
+        };
+      }
+    }
+
+    /**
+     * Shows a transient notification (toast).
+     * @param {string} message - The message content.
+     * @param {'success'|'error'|'info'|'warning'} [type='info'] - Type of notification.
+     */
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      let icon = '';
+      if (type === 'success') icon = '<i class="fas fa-check-circle"></i>';
+      else if (type === 'error') icon = '<i class="fas fa-exclamation-circle"></i>';
+      else if (type === 'warning') icon = '<i class="fas fa-exclamation-triangle"></i>';
+      else icon = '<i class="fas fa-info-circle"></i>';
+
+      toast.innerHTML = `${icon}<span>${message}</span>`;
+      toastContainer.appendChild(toast);
+
+      // Show
+      setTimeout(() => toast.classList.add('show'), 10);
+
+      // Hide and remove after 4 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 1000); // Changed to 1 second delay for quick success messages
+    }
+
+    // --- USER MANAGEMENT (Using custom UI) ---
+    
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('users') || '{}');
+    }
+    function saveUsers(d) {
+      localStorage.setItem('users', JSON.stringify(d));
+    }
+
+    function register() {
+      const u = user.value.trim();
+      const p = pass.value.trim();
+      if (!u || !p) return err.innerText = 'Vui lòng nhập đầy đủ.';
+      if (getUsers()[u]) return err.innerText = 'Username đã tồn tại!';
+      saveUsers({...getUsers(), [u]: { password: p, display: u }});
+      err.innerText = 'Đăng ký thành công! Vui lòng đăng nhập.';
+      err.style.color = '#4ade80';
+    }
+
+    function login() {
+      const u = user.value.trim();
+      const p = pass.value.trim();
+      const users = getUsers();
+      if (!users[u] || users[u].password !== p) return err.innerText = 'Sai tài khoản hoặc mật khẩu.';
+      localStorage.setItem('currentUser', u);
+      loadMain();
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      location.reload();
+    }
+
+    function changeDisplay() {
+      const newD = newDisplay.value.trim();
+      if (!newD) return showToast('Tên hiển thị không được để trống.', 'warning'); 
+      
+      const u = localStorage.getItem('currentUser');
+      if (!u) return;
+      const users = getUsers();
+      users[u].display = newD;
+      saveUsers(users);
+      newDisplay.value = '';
+      
+      showToast('Đổi tên thành công!', 'success');
+      loadMain();
+    }
+
+    // 🔥 PHÁT NHẠC INTRO (Using custom UI)
+    function playIntroMusic() {
+      if (bai1Audio) { // Dừng nhạc quiz nếu đang chạy
+          bai1Audio.pause();
+          bai1Audio.currentTime = 0;
+          bai1Audio.loop = false;
+      }
+      const audio = document.getElementById('introAudio');
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.play().catch(e => {
+          showToast('⚠️ Không thể phát nhạc. Vui lòng click vào trang trước khi nhấn nút nhạc.', 'warning'); 
+        });
+      } else {
+        showToast('❌ Không tìm thấy file intro.mp3!', 'error'); 
+      }
+    }
+
+    function loadMain() {
+      const saved = localStorage.getItem('currentUser');
+      if (!saved) {
+        auth.style.display = 'flex';
+        main.style.display = 'none';
+        return;
+      }
+
+      currentUser = saved;
+      const users = getUsers();
+      if (!users[currentUser]) {
+        localStorage.removeItem('currentUser');
+        return location.reload();
+      }
+
+      auth.style.display = 'none';
+      main.style.display = 'flex';
+      iUser.innerText = currentUser;
+      iDisplay.innerText = users[currentUser].display;
+      adminTab.style.display = (currentUser === 'SDVTOWNER') ? 'block' : 'none';
+      loadChat();
+      
+      broadcastRef.on('value', (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          showBroadcast(data.message);
+          setTimeout(() => broadcastRef.remove(), 1000);
+        }
+      });
+      
+      const activeTab = document.querySelector('.tabs .active');
+      if (!activeTab || activeTab.dataset.content !== 'chat') {
+        document.getElementById('chat').classList.add('active');
+        document.querySelector('.tabs div[data-content="chat"]').classList.add('active');
+      }
+    }
+
+    function openTab(el, id) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById(id).classList.add('active');
+      
+      // Reset Mini Play khi mở tab
+      if (id === 'miniplay') {
+          quizArea.style.display = 'none';
+          resultScreen.style.display = 'none';
+          startBtn.style.display = 'block';
+          submitQuizBtn.style.display = 'none';
+          quizStatus.innerText = 'Nhấn BẮT ĐẦU QUIZ để kiểm tra kiến thức!';
+      } else {
+          // Dừng nhạc quiz nếu chuyển sang tab khác
+          if (bai1Audio) {
+              bai1Audio.pause();
+              bai1Audio.currentTime = 0;
+              bai1Audio.loop = false;
+          }
+      }
+    }
+
+    function sendMsg() {
+      const text = msgInput.value.trim();
+      const file = imgInput.files[0];
+      if (!text && !file) return;
+
+      const users = getUsers();
+      const displayName = users[currentUser]?.display || currentUser;
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          messagesRef.push({
+            owner: currentUser,
+            user: displayName,
+            text: text || '',
+            img: reader.result,
+            timestamp: Date.now()
+          });
+          msgInput.value = '';
+          imgInput.value = '';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        messagesRef.push({
+          owner: currentUser,
+          user: displayName,
+          text: text,
+          img: null,
+          timestamp: Date.now()
+        });
+        msgInput.value = '';
+      }
+    }
+
+    function loadChat() {
+      chatBox.innerHTML = '';
+      messagesRef.once('value').then(snapshot => {
+        if (snapshot.exists()) {
+          Object.values(snapshot.val()).forEach(renderMessage);
+        }
+        messagesRef.on('child_added', snap => renderMessage(snap.val()));
+      });
+    }
+
+    function renderMessage(data) {
+      const div = document.createElement('div');
+      
+      if (data.owner === 'SDVTOWNER') {
+        div.className = 'msg admin-me';
+      }
+      else if (data.owner === currentUser) {
+        div.className = 'me';
+      }
+      else {
+        div.className = 'msg';
+      }
+
+      div.innerHTML = `<b>${data.user}</b><br>${data.text || ''}`;
+      if (data.img) {
+        const img = document.createElement('img');
+        img.src = data.img;
+        img.className = 'chat-img';
+        div.appendChild(img);
+      }
+      
+      chatBox.appendChild(div);
+      if (chatBox.scrollHeight - chatBox.clientHeight < chatBox.scrollTop + 200) {
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+
+    function sendBroadcast() {
+      if (currentUser !== 'SDVTOWNER') return;
+      const msg = broadcastMsg.value.trim();
+      if (!msg) return showToast('Vui lòng nhập tin nhắn!', 'warning');
+      if (msg.length > 150) return showToast('Tối đa 150 ký tự!', 'error');
+
+      broadcastRef.set({
+        message: msg,
+        timestamp: Date.now()
+      });
+      broadcastMsg.value = '';
+      showToast('Đã gửi thông báo toàn mạng!', 'success');
+    }
+
+    function showBroadcast(message) {
+      broadcastText.innerText = message;
+      broadcastOverlay.style.display = 'flex';
+      setTimeout(() => {
+        broadcastOverlay.style.display = 'none';
+      }, 5000);
+    }
+
+    function resetAccounts() {
+      showModal(
+        'XÁC NHẬN HỆ THỐNG',
+        'Bạn có chắc chắn muốn xóa tất cả tài khoản người dùng (trừ SDVTOWNER)? Hành động này không thể hoàn tác.',
+        true,
+        (confirmed) => {
+          if (confirmed) {
+            const newUsers = {
+              'SDVTOWNER': {
+                password: '@7112012SDVT',
+                display: '👑 SDVT OWNER'
+              }
+            };
+            saveUsers(newUsers);
+            showToast('Đã xóa tất cả tài khoản trừ admin!', 'success');
+          } else {
+            showToast('Hủy bỏ thao tác.', 'info');
+          }
+        }
+      );
+    }
+
+    function resetChat() {
+      showModal(
+        'XÁC NHẬN XÓA CHAT',
+        'Bạn có chắc chắn muốn xóa toàn bộ lịch sử chat? Hành động này không thể hoàn tác.',
+        true,
+        (confirmed) => {
+          if (confirmed) {
+            messagesRef.remove();
+            chatBox.innerHTML = '';
+            showToast('Đã xóa toàn bộ chat!', 'success');
+          } else {
+            showToast('Hủy bỏ thao tác.', 'info');
+          }
+        }
+      );
+    }
+
+    // Attach to window for global access
+    window.register = register;
+    window.login = login;
+    window.logout = logout;
+    window.changeDisplay = changeDisplay;
+    window.openTab = openTab;
+    window.sendMsg = sendMsg;
+    window.resetAccounts = resetAccounts;
+    window.resetChat = resetChat;
+    window.sendBroadcast = sendBroadcast;
+    window.playIntroMusic = playIntroMusic;
+    window.showModal = showModal;
+    
+    // Attach Quiz functions
+    window.startQuiz = startQuiz;
+    window.submitQuiz = submitQuiz; 
+    window.selectOption = selectOption; 
+    window.playQuizMusic = playQuizMusic; 
+
+    // Init
+    loadMain();
+    msgInput.addEventListener('keypress', e => {
+      if (e.key === "Enter") sendMsg();
+    });
+  </script>
+</body>
+</html>
